@@ -7,6 +7,8 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 export function Header() {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const navigation = [
     { name: 'Shop', href: '/shop' },
@@ -52,9 +54,38 @@ export function Header() {
           
           {/* Search and Menu */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="text-gray-600 hover:text-luxury-gold touch-target">
-              <Search className="w-5 h-5" />
-            </Button>
+            {/* Expandable Search */}
+            <div className="relative">
+              {isSearchOpen ? (
+                <div className="flex items-center bg-gray-50 rounded-lg">
+                  <Input
+                    type="text"
+                    placeholder="Search watches..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-64 border-none bg-transparent focus:ring-0 focus:outline-none"
+                    autoFocus
+                  />
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => setIsSearchOpen(false)}
+                    className="text-gray-600 hover:text-luxury-gold"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={() => setIsSearchOpen(true)}
+                  className="text-gray-600 hover:text-luxury-gold touch-target"
+                >
+                  <Search className="w-5 h-5" />
+                </Button>
+              )}
+            </div>
             
             {/* Mobile Menu */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>

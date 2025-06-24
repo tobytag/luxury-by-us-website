@@ -119,15 +119,23 @@
     border-color: var(--luxury-black);
   }
   
-  /* Responsive spacing utilities */
+  /* Responsive spacing utilities with wider margins */
   .container-responsive {
-    max-width: 1200px;
+    max-width: calc(100vw - 200px);
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 100px;
+  }
+  
+  @media (max-width: 1024px) {
+    .container-responsive {
+      max-width: calc(100vw - 100px);
+      padding: 0 50px;
+    }
   }
   
   @media (max-width: 768px) {
     .container-responsive {
+      max-width: calc(100vw - 32px);
       padding: 0 var(--spacing-sm);
     }
   }

@@ -24,46 +24,44 @@ export function ProductCard({ watch }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 h-full flex flex-col overflow-hidden">
-      <div className="aspect-square bg-gray-50 rounded-t-lg overflow-hidden relative">
-        <img 
-          src={watch.image} 
-          alt={watch.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-        />
-        
-        {/* Hover overlay with quick actions */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            <Button size="sm" className="bg-white/90 text-luxury-black hover:bg-white shadow-lg">
-              Quick View
-            </Button>
-          </div>
-        </div>
-      </div>
-      
-      <div className="p-4 md:p-6 flex-1 flex flex-col">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
-          <h3 className="text-lg font-semibold text-luxury-black line-clamp-2 flex-1">{watch.name}</h3>
-          <div className="flex gap-1 flex-wrap">
-            {watch.featured && (
-              <Badge className="bg-luxury-gold/10 text-luxury-gold text-xs">Featured</Badge>
-            )}
-            <Badge className={`${getConditionColor(watch.condition)} text-xs`}>{watch.condition}</Badge>
-          </div>
-        </div>
-        
-        <p className="text-gray-600 text-sm mb-2">{watch.brand}</p>
-        <div className="mt-auto">
-          <p className="omega-price text-lg md:text-xl text-luxury-black mb-4">{formatPriceShort(watch.price)}</p>
+    <Link href={`/product/${watch.id}`} className="block h-full">
+      <div className="group bg-white h-full flex flex-col transition-all duration-500 hover:shadow-lg">
+        <div className="aspect-square bg-gray-50 overflow-hidden relative">
+          <img 
+            src={watch.image} 
+            alt={watch.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
           
-          <Link href={`/product/${watch.id}`}>
-            <Button className="w-full bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black transition-all duration-300 touch-target group-hover:shadow-lg">
-              View Details
-            </Button>
-          </Link>
+          {/* Hover overlay with buy now button */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+              <button className="bg-white/80 hover:bg-white/90 text-luxury-black px-6 py-2 rounded font-medium shadow-lg transition-all duration-300">
+                Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="p-6 flex-1 flex flex-col">
+          <div className="mb-3">
+            <h3 className="text-lg font-light text-luxury-black mb-1 leading-tight">{watch.name}</h3>
+            <p className="text-gray-600 text-sm">{watch.brand}</p>
+          </div>
+          
+          <div className="mt-auto">
+            <p className="omega-price text-xl text-luxury-black font-light">{formatPriceShort(watch.price)}</p>
+          </div>
+          
+          {/* Subtle badges */}
+          <div className="flex gap-1 mt-3">
+            {watch.featured && (
+              <Badge className="bg-luxury-gold/10 text-luxury-gold text-xs border-none">Featured</Badge>
+            )}
+            <Badge className={`${getConditionColor(watch.condition)} text-xs border-none`}>{watch.condition}</Badge>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

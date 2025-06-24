@@ -1,18 +1,65 @@
-import React from 'react';
-import { Search } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, Filter, SlidersHorizontal, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
 import { ProductCard } from '@/components/ProductCard';
 import { useApp } from '@/contexts/AppContext';
-import { brands, categories, priceRanges, sortOptions } from '@/data/products';
+import { brands, categories, priceRanges, sortOptions, conditions } from '@/data/products';
+
+const deliveryOptions = [
+  'Watch with original box and original papers',
+  'Watch with original papers',
+  'Watch with original box'
+];
+
+const availabilityOptions = [
+  'In stock',
+  'Needs to be procured', 
+  'Available on request'
+];
+
+const conditionDetails = [
+  'New/unworn',
+  'Used',
+  'No details'
+];
+
+const sortOptionsExtended = [
+  { value: 'relevance', label: 'Relevance' },
+  { value: 'price-high-low', label: 'Price: High to Low' },
+  { value: 'price-low-high', label: 'Price: Low to High' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'popularity', label: 'Popularity' }
+];
 
 export function ShopPage() {
   const { filteredWatches, filters, setFilters, isLoading } = useApp();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({
+    brands: [] as string[],
+    conditions: [] as string[],
+    delivery: [] as string[],
+    availability: [] as string[],
+    conditionDetails: [] as string[]
+  });
 
   const clearAllFilters = () => {
-    setFilters({ search: '', brand: 'all', category: 'all', priceRange: 'all', sortBy: 'featured' });
+    setFilters({ search: '', brand: 'all', category: 'all', priceRange: 'all', sortBy: 'relevance' });
+    setSelectedFilters({
+      brands: [],
+      conditions: [],
+      delivery: [],
+      availability: [],
+      conditionDetails: []
+    });
   };
+
+  const activeFiltersCount = Object.values(selectedFilters).reduce((count, arr) => count + arr.length, 0);
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -34,75 +81,206 @@ export function ShopPage() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover our curated selection of authentic luxury timepieces</p>
         </div>
         
-        {/* Search Bar */}
-        <div className="mb-8">
-          <div className="relative max-w-md mx-auto lg:mx-0">
-            <Input
-              type="text"
-              placeholder="Search watches..."
-              value={filters.search}
-              onChange={(e) => setFilters({ search: e.target.value })}
-              className="pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:border-transparent touch-target"
-            />
-            <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-          </div>
-        </div>
-        
-        {/* Filter Bar */}
+        {/* Filter and Sort Bar */}
         <div className="mb-8 md:mb-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Brand Filter */}
-            <Select value={filters.brand} onValueChange={(value) => setFilters({ brand: value })}>
-              <SelectTrigger className="touch-target">
-                <SelectValue placeholder="All Brands" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Brands</SelectItem>
-                {brands.map((brand) => (
-                  <SelectItem key={brand} value={brand.toLowerCase()}>
-                    {brand}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            {/* Category Filter */}
-            <Select value={filters.category} onValueChange={(value) => setFilters({ category: value })}>
-              <SelectTrigger className="touch-target">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category.toLowerCase()}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            {/* Price Filter */}
-            <Select value={filters.priceRange} onValueChange={(value) => setFilters({ priceRange: value })}>
-              <SelectTrigger className="touch-target">
-                <SelectValue placeholder="All Prices" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Prices</SelectItem>
-                {priceRanges.map((range) => (
-                  <SelectItem key={range.value} value={range.value}>
-                    {range.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            {/* Sort */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            {/* Filter Button */}
+            <div className="flex items-center gap-4">
+              <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" className="touch-target">
+                    <SlidersHorizontal className="w-4 h-4 mr-2" />
+                    Filters
+                    {activeFiltersCount > 0 && (
+                      <Badge className="ml-2 bg-luxury-gold text-luxury-black">{activeFiltersCount}</Badge>
+                    )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-96 overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle className="flex items-center justify-between">
+                      Filter Watches
+                      {activeFiltersCount > 0 && (
+                        <Button variant="ghost" size="sm" onClick={clearAllFilters} className="text-gray-500">
+                          Clear All
+                        </Button>
+                      )}
+                    </SheetTitle>
+                  </SheetHeader>
+                  
+                  <div className="mt-6 space-y-6">
+                    {/* Brand Filter */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Brand</h4>
+                      <div className="space-y-2 max-h-40 overflow-y-auto">
+                        {brands.map((brand) => (
+                          <div key={brand} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`brand-${brand}`}
+                              checked={selectedFilters.brands.includes(brand)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    brands: [...prev.brands, brand]
+                                  }));
+                                } else {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    brands: prev.brands.filter(b => b !== brand)
+                                  }));
+                                }
+                              }}
+                            />
+                            <label htmlFor={`brand-${brand}`} className="text-sm cursor-pointer">
+                              {brand}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Price Range */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Price Range</h4>
+                      <Select value={filters.priceRange} onValueChange={(value) => setFilters({ priceRange: value })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="All Prices" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Prices</SelectItem>
+                          {priceRanges.map((range) => (
+                            <SelectItem key={range.value} value={range.value}>
+                              {range.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <Separator />
+
+                    {/* Year */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Year of Production</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        <Input placeholder="From" type="number" />
+                        <Input placeholder="To" type="number" />
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Condition */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Condition</h4>
+                      <div className="space-y-2">
+                        {conditions.map((condition) => (
+                          <div key={condition} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`condition-${condition}`}
+                              checked={selectedFilters.conditions.includes(condition)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    conditions: [...prev.conditions, condition]
+                                  }));
+                                } else {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    conditions: prev.conditions.filter(c => c !== condition)
+                                  }));
+                                }
+                              }}
+                            />
+                            <label htmlFor={`condition-${condition}`} className="text-sm cursor-pointer">
+                              {condition}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Delivery Content */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Delivery Content</h4>
+                      <div className="space-y-2">
+                        {deliveryOptions.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`delivery-${option}`}
+                              checked={selectedFilters.delivery.includes(option)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    delivery: [...prev.delivery, option]
+                                  }));
+                                } else {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    delivery: prev.delivery.filter(d => d !== option)
+                                  }));
+                                }
+                              }}
+                            />
+                            <label htmlFor={`delivery-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Availability */}
+                    <div>
+                      <h4 className="font-medium text-luxury-black mb-3">Availability</h4>
+                      <div className="space-y-2">
+                        {availabilityOptions.map((option) => (
+                          <div key={option} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`availability-${option}`}
+                              checked={selectedFilters.availability.includes(option)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    availability: [...prev.availability, option]
+                                  }));
+                                } else {
+                                  setSelectedFilters(prev => ({
+                                    ...prev,
+                                    availability: prev.availability.filter(a => a !== option)
+                                  }));
+                                }
+                              }}
+                            />
+                            <label htmlFor={`availability-${option}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Sort Dropdown */}
             <Select value={filters.sortBy} onValueChange={(value) => setFilters({ sortBy: value })}>
-              <SelectTrigger className="touch-target">
+              <SelectTrigger className="w-64">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                {sortOptions.map((option) => (
+                {sortOptionsExtended.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
                   </SelectItem>
