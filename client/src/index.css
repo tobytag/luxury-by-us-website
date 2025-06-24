@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 
 :root {
   --background: hsl(0, 0%, 100%);
@@ -31,6 +31,14 @@
   --luxury-dark: hsl(0, 0%, 10%);
   --luxury-gold: hsl(45, 66%, 52%);
   --luxury-gold-light: hsl(51, 100%, 50%);
+  
+  /* Responsive spacing variables */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
 }
 
 .dark {
@@ -109,6 +117,65 @@
   
   .border-luxury-black {
     border-color: var(--luxury-black);
+  }
+  
+  /* Responsive spacing utilities */
+  .container-responsive {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+  
+  @media (max-width: 768px) {
+    .container-responsive {
+      padding: 0 var(--spacing-sm);
+    }
+  }
+  
+  /* Typography scaling */
+  .text-responsive-h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  .text-responsive-h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .text-responsive-h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  @media (max-width: 1024px) {
+    .text-responsive-h1 {
+      font-size: 2rem;
+    }
+    .text-responsive-h2 {
+      font-size: 1.75rem;
+    }
+    .text-responsive-h3 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .text-responsive-h1 {
+      font-size: 1.75rem;
+    }
+    .text-responsive-h2 {
+      font-size: 1.5rem;
+    }
+    .text-responsive-h3 {
+      font-size: 1.125rem;
+    }
+  }
+  
+  /* Touch-friendly elements */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 

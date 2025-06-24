@@ -14,6 +14,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get featured watches
+  app.get("/api/watches/featured", async (_req, res) => {
+    try {
+      const watches = await storage.getFeaturedWatches();
+      res.json(watches);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch featured watches" });
+    }
+  });
+
   // Get single watch
   app.get("/api/watches/:id", async (req, res) => {
     try {
@@ -27,8 +37,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch watch" });
     }
   });
-
-  // Get featured watches
   app.get("/api/watches/featured", async (_req, res) => {
     try {
       const watches = await storage.getFeaturedWatches();

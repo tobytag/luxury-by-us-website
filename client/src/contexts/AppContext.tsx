@@ -22,9 +22,9 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const initialFilters: FilterState = {
   search: '',
-  brand: '',
-  category: '',
-  priceRange: '',
+  brand: 'all',
+  category: 'all',
+  priceRange: 'all',
   sortBy: 'featured',
 };
 
@@ -73,17 +73,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
 
     // Brand filter
-    if (filters.brand) {
+    if (filters.brand && filters.brand !== 'all') {
       filtered = filtered.filter(watch => watch.brand.toLowerCase() === filters.brand.toLowerCase());
     }
 
     // Category filter
-    if (filters.category) {
+    if (filters.category && filters.category !== 'all') {
       filtered = filtered.filter(watch => watch.category.toLowerCase() === filters.category.toLowerCase());
     }
 
     // Price range filter
-    if (filters.priceRange) {
+    if (filters.priceRange && filters.priceRange !== 'all') {
       const [min, max] = filters.priceRange.split('-').map(p => parseInt(p));
       if (max) {
         filtered = filtered.filter(watch => watch.price >= min && watch.price <= max);

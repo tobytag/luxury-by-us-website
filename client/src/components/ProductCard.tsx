@@ -24,7 +24,7 @@ export function ProductCard({ watch }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+    <div className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
       <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
         <img 
           src={watch.image} 
@@ -33,25 +33,27 @@ export function ProductCard({ watch }: ProductCardProps) {
         />
       </div>
       
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-luxury-black line-clamp-1">{watch.name}</h3>
-          <div className="flex gap-1">
+      <div className="p-4 md:p-6 flex-1 flex flex-col">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
+          <h3 className="text-lg font-semibold text-luxury-black line-clamp-2 flex-1">{watch.name}</h3>
+          <div className="flex gap-1 flex-wrap">
             {watch.featured && (
-              <Badge className="bg-luxury-gold/10 text-luxury-gold">Featured</Badge>
+              <Badge className="bg-luxury-gold/10 text-luxury-gold text-xs">Featured</Badge>
             )}
-            <Badge className={getConditionColor(watch.condition)}>{watch.condition}</Badge>
+            <Badge className={`${getConditionColor(watch.condition)} text-xs`}>{watch.condition}</Badge>
           </div>
         </div>
         
         <p className="text-gray-600 text-sm mb-2">{watch.brand}</p>
-        <p className="text-xl font-bold text-luxury-black mb-4">{formatPriceShort(watch.price)}</p>
-        
-        <Link href={`/product/${watch.id}`}>
-          <Button className="w-full bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black transition-all duration-300">
-            View Details
-          </Button>
-        </Link>
+        <div className="mt-auto">
+          <p className="text-lg md:text-xl font-bold text-luxury-black mb-4">{formatPriceShort(watch.price)}</p>
+          
+          <Link href={`/product/${watch.id}`}>
+            <Button className="w-full bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black transition-all duration-300 touch-target">
+              View Details
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

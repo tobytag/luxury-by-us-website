@@ -348,7 +348,7 @@ export class MemStorage implements IStorage {
 
     watchesData.forEach(watch => {
       const id = this.currentWatchId++;
-      this.watches.set(id, { ...watch, id });
+      this.watches.set(id, { ...watch, id, featured: watch.featured ?? false });
     });
   }
 
@@ -392,6 +392,8 @@ export class MemStorage implements IStorage {
     const newInquiry: Inquiry = { 
       ...inquiry, 
       id,
+      watchId: inquiry.watchId ?? null,
+      message: inquiry.message ?? null,
       createdAt: new Date().toISOString(),
     };
     this.inquiries.set(id, newInquiry);
@@ -403,6 +405,11 @@ export class MemStorage implements IStorage {
     const newSubmission: SellSubmission = { 
       ...submission, 
       id,
+      year: submission.year ?? null,
+      description: submission.description ?? null,
+      hasBox: submission.hasBox ?? null,
+      hasPapers: submission.hasPapers ?? null,
+      hasServiceRecords: submission.hasServiceRecords ?? null,
       createdAt: new Date().toISOString(),
     };
     this.sellSubmissions.set(id, newSubmission);

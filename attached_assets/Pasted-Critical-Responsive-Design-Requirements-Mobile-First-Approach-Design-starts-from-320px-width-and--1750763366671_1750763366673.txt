@@ -1,0 +1,426 @@
+Critical Responsive Design Requirements:
+
+Mobile-First Approach: Design starts from 320px width and scales up
+Breakpoints:
+
+Mobile: 320px - 768px (single column layouts)
+Tablet: 768px - 1024px (two column layouts)
+Desktop: 1024px+ (multi-column layouts)
+
+
+Alignment System:
+
+Use consistent 8px grid system for all spacing
+Maintain vertical rhythm with consistent line heights
+Ensure perfect center alignment for all sections
+Use CSS Flexbox and Grid for predictable layouts
+
+
+
+Advanced Responsive Features:
+
+Touch-friendly button sizes (minimum 44px height on mobile)
+Optimized image loading with responsive breakpoints
+Smooth transitions between device orientations
+Consistent spacing ratios across all screen sizes
+Typography scaling that maintains readability
+
+Visual Hierarchy:
+
+Use placeholder images with luxury aesthetic (elegant gradients, geometric patterns)
+Implement subtle hover effects and premium animations
+Ensure generous whitespace following luxury design principles
+Create visual depth with subtle shadows and layering
+Maintain consistent visual rhythm throughout all sections
+
+REQUIRED PAGES & FUNCTIONALITY
+1. Homepage (Route: "/")
+Must Include These Exact Sections in Order:
+A. Header and Banner Section
+
+Header Design: Minimalist luxury navigation inspired by Omega and Patek Philippe
+
+Clean, uncluttered top navigation bar
+Elegant typography with luxury font pairing
+Subtle logo placement with premium spacing
+Search icon and hamburger menu for mobile
+
+
+Hero Banner: Full-screen cinematic experience
+
+High-impact luxury watch imagery (use elegant gradients as placeholders)
+Premium typography with sophisticated hierarchy
+Compelling headline: "Curated Luxury Timepieces" or similar
+Minimal, elegant CTA button with subtle hover animations
+Clean overlay design that doesn't compete with imagery
+Inspiration: Omega's homepage hero section layout and Patek Philippe's refined aesthetic
+
+
+
+B. Prestigious Brands Section
+
+Layout: Sophisticated brand showcase grid
+Brands: Rolex, Patek Philippe, Audemars Piguet, Omega, Cartier, TAG Heuer
+Design: Clean brand logos with subtle hover effects
+CTA: Prominent "Explore More" button with luxury styling
+Spacing: Generous whitespace following luxury design principles
+
+C. Featured Collection Section
+
+Carousel Design: Smooth, premium carousel showcasing 6 luxury watches
+Product Cards: Each card must include:
+
+High-quality product image placeholder
+Watch name and brand
+Price in Nigerian Naira (₦) with elegant formatting
+Key specifications (Movement, Case Material, Year)
+Condition status (New, Excellent, Very Good)
+"View Details" button with subtle animation
+
+
+Navigation: Elegant carousel dots and arrow controls
+Responsive: 1 card mobile, 2 tablet, 3+ desktop with smooth transitions
+
+D. Sell Your Watch Section
+
+Layout: Split-screen design with compelling imagery and content
+Content:
+
+Headline: "Sell Your Luxury Timepiece"
+Subtext about expert evaluation and best prices
+"Get Free Evaluation" CTA button
+Trust indicators (certified appraisers, secure process)
+
+
+Visual: Elegant watch imagery or sophisticated graphics
+
+E. Why Choose LuxurybyUS Section
+
+Design: 3-column grid with icons and descriptions
+Features to highlight:
+
+Authenticity Guarantee (with certification badge)
+Expert Curation (with professional credentials)
+Secure Transactions (with security badges)
+
+
+Styling: Minimalist icons, elegant typography, generous spacing
+
+F. Stay Updated Section
+
+Newsletter Signup: Premium design with luxury aesthetic
+Content: "Stay informed about new arrivals and exclusive collections"
+Form: Single email input with elegant styling
+CTA: "Subscribe" button matching overall design language
+Privacy: Subtle privacy policy link
+
+G. Footer Section
+
+Design: Sophisticated multi-column layout
+Content:
+
+Company information and Lagos address
+Quick links (Shop, Sell, About, Contact)
+Contact details (WhatsApp, Phone, Email)
+Social media links
+Copyright and legal information
+
+
+Styling: Elegant typography with proper hierarchy
+
+2. Shop Page (Route: "/shop")
+Must Include:
+
+Product grid displaying all available watches
+Filter functionality by:
+
+Brand (dropdown or checkboxes)
+Price range (slider or input fields)
+Category (Men's, Women's, Limited Edition)
+
+
+Sort functionality (Price: Low to High, High to Low, Newest, Popular)
+Search bar for finding specific watches
+Responsive grid layout (1 column mobile, 2-3 tablet, 4+ desktop)
+
+3. Product Detail Page (Route: "/product/:id")
+Must Include:
+
+Large product image display with zoom functionality
+Product name, brand, and price prominently displayed
+Detailed specifications table (Movement, Case Material, Water Resistance, etc.)
+Product description and condition assessment
+"Inquire Now" button that opens contact form
+Related/similar products section
+Breadcrumb navigation
+
+4. Sell Page (Route: "/sell")
+Must Include:
+
+"How It Works" section with 4-step process:
+
+Submit Watch Details
+Receive Evaluation
+Accept Offer
+Get Paid
+
+
+Watch submission form with fields:
+
+Brand, Model, Year
+Condition assessment
+Photos upload placeholder
+Contact information
+
+
+FAQ section with collapsible accordion
+Contact information and response time expectations
+
+DATA STRUCTURE
+Product Data Format
+javascriptconst products = [
+  {
+    id: 1,
+    name: "Rolex Submariner Date",
+    brand: "Rolex",
+    price: 12500000, // Price in Naira
+    category: "Men's",
+    condition: "Excellent",
+    year: 2022,
+    image: "placeholder-image-url",
+    specs: {
+      movement: "Automatic",
+      caseMaterial: "Stainless Steel",
+      caseSize: "41mm",
+      waterResistance: "300m"
+    },
+    description: "Iconic diving watch with exceptional build quality and precision."
+  }
+  // Add 15-20 similar products with varied brands and specifications
+];
+Required Brands
+Include products from: Rolex, Patek Philippe, Audemars Piguet, Omega, Cartier, TAG Heuer, Breitling, IWC, Panerai, Jaeger-LeCoultre
+LUXURY DESIGN IMPLEMENTATION GUIDE
+Omega & Patek Philippe Inspired Elements
+Study and Implement These Specific Design Patterns:
+
+Hero Section Design (Omega Style):
+
+Full-screen immersive imagery with subtle overlay
+Centered, minimal typography with luxury font pairing
+Single, prominent CTA button with elegant hover animation
+Clean navigation that doesn't compete with hero content
+
+
+Typography Hierarchy (Patek Philippe Style):
+
+Generous letter spacing for headings
+Sophisticated serif fonts for luxury appeal
+Ample line height for readability
+Minimal, well-spaced text blocks
+
+
+Color Application:
+
+Predominantly white/light backgrounds with strategic dark accents
+Gold accents used sparingly for premium elements
+High contrast for readability while maintaining elegance
+Subtle gradients for depth without overwhelming
+
+
+Section Spacing:
+
+Extra-generous whitespace between sections
+Consistent vertical rhythm throughout
+Breathing room around all interactive elements
+Strategic use of negative space for luxury feel
+
+
+
+Carousel Design Standards
+Featured Collection Carousel Must Include:
+
+Smooth, touch-friendly swipe gestures on mobile
+Elegant navigation dots with subtle animations
+Auto-play functionality with pause on hover
+Seamless loop between first and last items
+Progressive image loading for performance
+Consistent card heights across all products
+
+Product Card Specifications:
+css/* Luxury product card styling */
+.product-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  padding: 24px;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+Required Components
+
+Header Component
+
+Logo, navigation menu, search icon
+Mobile hamburger menu
+Sticky navigation on scroll
+
+
+ProductCard Component
+
+Product image, name, brand, price
+"View Details" button
+Hover effects and animations
+
+
+Filter Component
+
+Filter options with clear/reset functionality
+Real-time filtering without page reload
+
+
+ContactForm Component
+
+Form validation and error handling
+Success message after submission
+
+
+Footer Component
+
+Contact information, social links
+Copyright and legal information
+
+
+
+USER EXPERIENCE REQUIREMENTS
+Navigation
+
+Clear, intuitive menu structure
+Breadcrumbs on product pages
+Search functionality that actually filters products
+Mobile-responsive hamburger menu
+
+Performance Standards
+
+Fast loading times (optimize all code)
+Smooth transitions and animations
+No broken links or console errors
+Graceful error handling for all user interactions
+
+RESPONSIVE DESIGN & ALIGNMENT STANDARDS
+Critical Responsive Requirements
+Mobile Optimization (320px - 768px):
+
+Single column layouts with full-width sections
+Stack all elements vertically with proper spacing
+Ensure carousel shows 1 product card at a time
+Navigation collapses to hamburger menu
+Font sizes scale appropriately (minimum 16px for body text)
+Touch targets minimum 44px for buttons and links
+Eliminate horizontal scrolling completely
+
+Tablet Optimization (768px - 1024px):
+
+Two-column layouts where appropriate
+Carousel shows 2 product cards simultaneously
+Navigation remains visible with condensed spacing
+Maintain touch-friendly interface elements
+Optimize image sizes for tablet viewing
+
+Desktop Optimization (1024px+):
+
+Multi-column layouts with generous spacing
+Carousel shows 3-4 product cards simultaneously
+Full navigation menu with hover states
+Desktop-specific interactions (hover effects, larger click targets)
+Maximum content width of 1200px with center alignment
+
+Alignment System
+CSS Grid and Flexbox Implementation:
+css/* Use consistent spacing variables */
+:root {
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+}
+
+/* Ensure perfect center alignment */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+Typography Scaling:
+
+H1: 2.5rem desktop, 2rem tablet, 1.75rem mobile
+H2: 2rem desktop, 1.75rem tablet, 1.5rem mobile
+H3: 1.5rem desktop, 1.25rem tablet, 1.125rem mobile
+Body: 1rem all devices (minimum 16px)
+Line height: 1.6 for body text, 1.2 for headings
+
+Spacing Consistency:
+
+Section padding: 64px desktop, 48px tablet, 32px mobile
+Element margins: Follow 8px grid system
+Card padding: 24px desktop, 16px tablet, 12px mobile
+Button padding: 12px 24px desktop, 8px 16px mobile
+
+Advanced Layout Techniques
+Flexbox Usage:
+
+Use for navigation bars and button groups
+Implement for card layouts and content alignment
+Ensure proper flex-wrap for responsive behavior
+
+CSS Grid Implementation:
+
+Use for main page layouts and product grids
+Implement for complex multi-column sections
+Ensure graceful degradation for older browsers
+
+Image Responsiveness:
+css/* Responsive image handling */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Responsive background images */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+FUNCTIONAL REQUIREMENTS
+State Management
+
+Use React Context or useState for:
+
+Product filtering and search
+Shopping cart (for inquiries)
+Form data management
+
+
+Maintain filter state when navigating between pages
+
+Form Handling
+
+Client-side validation for all forms
+Clear error messages and success feedback
+Prevent form submission with invalid data
+Reset forms after successful submission
+
+Error Handling
+
+Implement error boundaries for React components
+Handle missing product data gracefully
+Provide fallback content for broken images
+Display user-friendly error messages

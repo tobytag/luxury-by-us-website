@@ -48,12 +48,12 @@ export function NewsletterForm() {
         placeholder="Enter your email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="flex-1"
+        className="flex-1 touch-target"
         disabled={isLoading}
       />
       <Button 
         type="submit" 
-        className="bg-luxury-gold hover:bg-luxury-gold-light text-luxury-black font-semibold"
+        className="bg-luxury-gold hover:bg-luxury-gold-light text-luxury-black font-semibold touch-target"
         disabled={isLoading}
       >
         {isLoading ? 'Subscribing...' : 'Subscribe'}

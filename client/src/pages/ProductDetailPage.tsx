@@ -100,8 +100,8 @@ export function ProductDetailPage() {
   }
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container-responsive">
         {/* Breadcrumb */}
         <nav className="mb-8">
           <ol className="flex items-center space-x-2 text-sm">
@@ -147,7 +147,7 @@ export function ProductDetailPage() {
                 <Badge className="bg-luxury-gold/10 text-luxury-gold">Certified Authentic</Badge>
                 <Badge className="bg-green-100 text-green-600">{watch.condition} Condition</Badge>
               </div>
-              <h1 className="text-3xl md:text-4xl font-playfair font-bold text-luxury-black mb-2">{watch.name}</h1>
+              <h1 className="text-responsive-h1 font-playfair font-bold text-luxury-black mb-2">{watch.name}</h1>
               <p className="text-lg text-gray-600 mb-4">{watch.brand}</p>
               <p className="text-4xl font-bold text-luxury-black">{formatPriceShort(watch.price)}</p>
             </div>
@@ -194,16 +194,16 @@ export function ProductDetailPage() {
               <Button 
                 size="lg"
                 onClick={handleInquiry}
-                className="w-full bg-luxury-gold hover:bg-luxury-gold-light text-luxury-black py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                className="w-full bg-luxury-gold hover:bg-luxury-gold-light text-luxury-black py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 touch-target"
               >
                 Inquire Now
               </Button>
-              <div className="flex gap-4">
-                <Button variant="outline" className="flex-1 border-2 border-luxury-black text-luxury-black hover:bg-luxury-black hover:text-white py-3 font-semibold transition-all duration-300">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="outline" className="flex-1 border-2 border-luxury-black text-luxury-black hover:bg-luxury-black hover:text-white py-3 font-semibold transition-all duration-300 touch-target">
                   <MessageCircle className="w-5 h-5 mr-2" />
                   WhatsApp
                 </Button>
-                <Button variant="outline" className="flex-1 border-2 border-luxury-black text-luxury-black hover:bg-luxury-black hover:text-white py-3 font-semibold transition-all duration-300">
+                <Button variant="outline" className="flex-1 border-2 border-luxury-black text-luxury-black hover:bg-luxury-black hover:text-white py-3 font-semibold transition-all duration-300 touch-target">
                   <Phone className="w-5 h-5 mr-2" />
                   Call Us
                 </Button>

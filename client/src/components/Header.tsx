@@ -53,14 +53,14 @@ export function Header() {
           
           {/* Search and Menu */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="text-gray-600 hover:text-luxury-gold">
+            <Button variant="ghost" size="icon" className="text-gray-600 hover:text-luxury-gold touch-target">
               <Search className="w-5 h-5" />
             </Button>
             
             {/* Mobile Menu */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden text-gray-600 hover:text-luxury-gold">
+                <Button variant="ghost" size="icon" className="md:hidden text-gray-600 hover:text-luxury-gold touch-target">
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
