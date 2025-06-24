@@ -177,6 +177,35 @@
     min-height: 44px;
     min-width: 44px;
   }
+  
+  /* Omega-inspired luxury styles */
+  .omega-product-title {
+    font-family: 'Georgia', serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  
+  .omega-price {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  
+  .luxury-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Smooth image zoom */
+  .image-zoom {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Premium button hover effects */
+  .luxury-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
 }
 
 /* Custom animations */
