@@ -24,13 +24,22 @@ export function ProductCard({ watch }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
-      <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+    <div className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 h-full flex flex-col overflow-hidden">
+      <div className="aspect-square bg-gray-50 rounded-t-lg overflow-hidden relative">
         <img 
           src={watch.image} 
           alt={watch.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
+        
+        {/* Hover overlay with quick actions */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            <Button size="sm" className="bg-white/90 text-luxury-black hover:bg-white shadow-lg">
+              Quick View
+            </Button>
+          </div>
+        </div>
       </div>
       
       <div className="p-4 md:p-6 flex-1 flex flex-col">
@@ -46,10 +55,10 @@ export function ProductCard({ watch }: ProductCardProps) {
         
         <p className="text-gray-600 text-sm mb-2">{watch.brand}</p>
         <div className="mt-auto">
-          <p className="text-lg md:text-xl font-bold text-luxury-black mb-4">{formatPriceShort(watch.price)}</p>
+          <p className="omega-price text-lg md:text-xl text-luxury-black mb-4">{formatPriceShort(watch.price)}</p>
           
           <Link href={`/product/${watch.id}`}>
-            <Button className="w-full bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black transition-all duration-300 touch-target">
+            <Button className="w-full bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black transition-all duration-300 touch-target group-hover:shadow-lg">
               View Details
             </Button>
           </Link>

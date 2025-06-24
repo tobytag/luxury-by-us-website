@@ -9,24 +9,68 @@ import { brands, categories, priceRanges, sortOptions } from '@/data/products';
 
 export function ShopPage() {
   const { filteredWatches, filters, setFilters, isLoading } = useApp();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [isFiltersVisible, setIsFiltersVisible] = useState(true);
+  
+  // Advanced filter states
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  const handleBrandFilter = (brand: string, checked: boolean) => {
+    if (checked) {
+      setSelectedBrands([...selectedBrands, brand]);
+    } else {
+      setSelectedBrands(selectedBrands.filter(b => b !== brand));
+    }
+  };
+
+  const handleConditionFilter = (condition: string, checked: boolean) => {
+    if (checked) {
+      setSelectedConditions([...selectedConditions, condition]);
+    } else {
+      setSelectedConditions(selectedConditions.filter(c => c !== condition));
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSelectedBrands([]);
+    setSelectedConditions([]);
+    setSelectedCategories([]);
+    setFilters({ search: '', brand: 'all', category: 'all', priceRange: 'all', sortBy: 'featured' });
+  };
+
+  const activeFiltersCount = selectedBrands.length + selectedConditions.length + selectedCategories.length;
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-8 md:py-16 bg-gray-50 min-h-screen">
       <div className="container-responsive">
+        {/* Breadcrumb Navigation */}
+        <nav className="mb-6">
+          <ol className="flex items-center space-x-2 text-sm text-gray-600">
+            <li><a href="/" className="hover:text-luxury-gold transition-colors">Home</a></li>
+            <li className="text-gray-400">/</li>
+            <li><a href="/shop" className="hover:text-luxury-gold transition-colors">Watches</a></li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-800">All Collections</li>
+          </ol>
+        </nav>
+
         {/* Page Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-responsive-h1 font-playfair font-bold text-luxury-black mb-4">Our Collection</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover our curated selection of authentic luxury timepieces</p>
+        <div className="mb-8">
+          <h1 className="omega-product-title text-3xl lg:text-4xl text-luxury-black mb-2">Watch Collection</h1>
+          <p className="text-lg text-gray-600 font-light">Discover our curated selection of authentic luxury timepieces</p>
         </div>
         
-        {/* Filter Section */}
-        <div className="mb-8 md:mb-12">
-          <div className="flex flex-col gap-6">
+        {/* Search Bar and View Toggle */}
+        <div className="mb-6">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
             {/* Search Bar */}
-            <div className="relative max-w-md mx-auto lg:mx-0">
+            <div className="relative flex-1 max-w-md">
               <Input
                 type="text"
-                placeholder="Search watches..."
+                placeholder="Search watches, brands, models..."
                 value={filters.search}
                 onChange={(e) => setFilters({ search: e.target.value })}
                 className="pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:border-transparent touch-target"
@@ -34,66 +78,59 @@ export function ShopPage() {
               <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             </div>
             
-            {/* Filters */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Brand Filter */}
-              <Select value={filters.brand} onValueChange={(value) => setFilters({ brand: value })}>
-                <SelectTrigger className="touch-target">
-                  <SelectValue placeholder="All Brands" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Brands</SelectItem>
-                  {brands.map((brand) => (
-                    <SelectItem key={brand} value={brand.toLowerCase()}>
-                      {brand}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            {/* View Controls */}
+            <div className="flex items-center gap-4">
+              {/* Mobile Filter Button */}
+              <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" className="lg:hidden touch-target">
+                    <SlidersHorizontal className="w-4 h-4 mr-2" />
+                    Filters
+                    {activeFiltersCount > 0 && (
+                      <Badge className="ml-2 bg-luxury-gold text-luxury-black">{activeFiltersCount}</Badge>
+                    )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-80">
+                  <SheetHeader>
+                    <SheetTitle>Filter Watches</SheetTitle>
+                  </SheetHeader>
+                  {/* Mobile filters content will go here */}
+                </SheetContent>
+              </Sheet>
               
-              {/* Category Filter */}
-              <Select value={filters.category} onValueChange={(value) => setFilters({ category: value })}>
-                <SelectTrigger className="touch-target">
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category.toLowerCase()}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* Desktop Filter Toggle */}
+              <Button 
+                variant="outline" 
+                onClick={() => setIsFiltersVisible(!isFiltersVisible)}
+                className="hidden lg:flex touch-target"
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                {isFiltersVisible ? 'Hide Filters' : 'Show Filters'}
+                {activeFiltersCount > 0 && (
+                  <Badge className="ml-2 bg-luxury-gold text-luxury-black">{activeFiltersCount}</Badge>
+                )}
+              </Button>
               
-              {/* Price Filter */}
-              <Select value={filters.priceRange} onValueChange={(value) => setFilters({ priceRange: value })}>
-                <SelectTrigger className="touch-target">
-                  <SelectValue placeholder="All Prices" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Prices</SelectItem>
-                  {priceRanges.map((range) => (
-                    <SelectItem key={range.value} value={range.value}>
-                      {range.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              
-              {/* Sort */}
-              <Select value={filters.sortBy} onValueChange={(value) => setFilters({ sortBy: value })}>
-                <SelectTrigger className="touch-target">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  {sortOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* View Mode Toggle */}
+              <div className="flex border rounded-lg overflow-hidden">
+                <Button
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('grid')}
+                  className="rounded-none border-r"
+                >
+                  <Grid className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="rounded-none"
+                >
+                  <List className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

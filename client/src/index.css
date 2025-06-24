@@ -206,6 +206,47 @@
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
+  
+  /* Omega-inspired card hover effects */
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Smooth filter animations */
+  .filter-slide-in {
+    animation: slideIn 0.3s ease-out forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Custom scrollbar for filter sidebar */
+  .filter-sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-thumb {
+    background: var(--luxury-gold);
+    border-radius: 2px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--luxury-gold-light);
+  }
 }
 
 /* Custom animations */
