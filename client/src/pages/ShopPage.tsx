@@ -45,21 +45,44 @@ export function ShopPage() {
     conditions: [] as string[],
     delivery: [] as string[],
     availability: [] as string[],
-    conditionDetails: [] as string[]
+    conditionDetails: [] as string[],
+    yearFrom: '',
+    yearTo: ''
   });
+
+  const [tempFilters, setTempFilters] = useState(selectedFilters);
 
   const clearAllFilters = () => {
     setFilters({ search: '', brand: 'all', category: 'all', priceRange: 'all', sortBy: 'relevance' });
-    setSelectedFilters({
+    const emptyFilters = {
       brands: [],
       conditions: [],
       delivery: [],
       availability: [],
-      conditionDetails: []
-    });
+      conditionDetails: [],
+      yearFrom: '',
+      yearTo: ''
+    };
+    setSelectedFilters(emptyFilters);
+    setTempFilters(emptyFilters);
   };
 
-  const activeFiltersCount = Object.values(selectedFilters).reduce((count, arr) => count + arr.length, 0);
+  const applyFilters = () => {
+    setSelectedFilters(tempFilters);
+    // Apply brand filter to main context
+    if (tempFilters.brands.length > 0) {
+      setFilters({ brand: tempFilters.brands[0].toLowerCase() });
+    } else {
+      setFilters({ brand: 'all' });
+    }
+    setIsFilterOpen(false);
+  };
+
+  const activeFiltersCount = Object.values(selectedFilters).reduce((count, arr) => {
+    if (Array.isArray(arr)) return count + arr.length;
+    if (typeof arr === 'string' && arr) return count + 1;
+    return count;
+  }, 0);
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -117,15 +140,15 @@ export function ShopPage() {
                           <div key={brand} className="flex items-center space-x-2">
                             <Checkbox
                               id={`brand-${brand}`}
-                              checked={selectedFilters.brands.includes(brand)}
+                              checked={tempFilters.brands.includes(brand)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     brands: [...prev.brands, brand]
                                   }));
                                 } else {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     brands: prev.brands.filter(b => b !== brand)
                                   }));
@@ -166,8 +189,18 @@ export function ShopPage() {
                     <div>
                       <h4 className="font-medium text-luxury-black mb-3">Year of Production</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        <Input placeholder="From" type="number" />
-                        <Input placeholder="To" type="number" />
+                        <Input 
+                          placeholder="From" 
+                          type="number" 
+                          value={tempFilters.yearFrom}
+                          onChange={(e) => setTempFilters(prev => ({ ...prev, yearFrom: e.target.value }))}
+                        />
+                        <Input 
+                          placeholder="To" 
+                          type="number" 
+                          value={tempFilters.yearTo}
+                          onChange={(e) => setTempFilters(prev => ({ ...prev, yearTo: e.target.value }))}
+                        />
                       </div>
                     </div>
 
@@ -181,15 +214,15 @@ export function ShopPage() {
                           <div key={condition} className="flex items-center space-x-2">
                             <Checkbox
                               id={`condition-${condition}`}
-                              checked={selectedFilters.conditions.includes(condition)}
+                              checked={tempFilters.conditions.includes(condition)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     conditions: [...prev.conditions, condition]
                                   }));
                                 } else {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     conditions: prev.conditions.filter(c => c !== condition)
                                   }));
@@ -214,15 +247,15 @@ export function ShopPage() {
                           <div key={option} className="flex items-center space-x-2">
                             <Checkbox
                               id={`delivery-${option}`}
-                              checked={selectedFilters.delivery.includes(option)}
+                              checked={tempFilters.delivery.includes(option)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     delivery: [...prev.delivery, option]
                                   }));
                                 } else {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     delivery: prev.delivery.filter(d => d !== option)
                                   }));
@@ -247,15 +280,15 @@ export function ShopPage() {
                           <div key={option} className="flex items-center space-x-2">
                             <Checkbox
                               id={`availability-${option}`}
-                              checked={selectedFilters.availability.includes(option)}
+                              checked={tempFilters.availability.includes(option)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     availability: [...prev.availability, option]
                                   }));
                                 } else {
-                                  setSelectedFilters(prev => ({
+                                  setTempFilters(prev => ({
                                     ...prev,
                                     availability: prev.availability.filter(a => a !== option)
                                   }));
@@ -267,6 +300,18 @@ export function ShopPage() {
                             </label>
                           </div>
                         ))}
+                      </div>
+                    </div>
+
+                    {/* Apply Filter Button */}
+                    <div className="sticky bottom-0 bg-white border-t pt-4 mt-6">
+                      <div className="flex gap-3">
+                        <Button variant="outline" onClick={() => setTempFilters(selectedFilters)} className="flex-1">
+                          Reset
+                        </Button>
+                        <Button onClick={applyFilters} className="flex-1 bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black">
+                          Apply Filters
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -298,7 +343,7 @@ export function ShopPage() {
         </div>
         
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-12 min-h-[400px]">
           {isLoading ? (
             Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="bg-white rounded-lg shadow-sm p-6">

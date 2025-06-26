@@ -119,11 +119,12 @@
     border-color: var(--luxury-black);
   }
   
-  /* Responsive spacing utilities with wider margins */
+  /* Responsive spacing utilities with wider margins and smooth loading */
   .container-responsive {
     max-width: calc(100vw - 200px);
     margin: 0 auto;
     padding: 0 100px;
+    will-change: transform;
   }
   
   @media (max-width: 1024px) {
@@ -138,6 +139,15 @@
       max-width: calc(100vw - 32px);
       padding: 0 var(--spacing-sm);
     }
+  }
+
+  /* Performance optimizations */
+  img {
+    will-change: transform;
+  }
+
+  .group:hover img {
+    transform: scale(1.05);
   }
   
   /* Typography scaling */

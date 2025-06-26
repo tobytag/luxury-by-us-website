@@ -6,9 +6,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('en-NG', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'NGN',
+    currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
@@ -16,5 +16,5 @@ export function formatPrice(price: number): string {
 
 export function formatPriceShort(price: number): string {
   const formatted = formatPrice(price);
-  return formatted.replace('NGN', '₦').replace(/,/g, ',');
+  return formatted.replace('USD', '$').replace(/,/g, ',');
 }
