@@ -37,7 +37,7 @@ export function ProductCard({ watch }: ProductCardProps) {
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
             <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
               <button className="bg-white/80 hover:bg-white/90 text-luxury-black px-6 py-2 rounded font-medium shadow-lg transition-all duration-300">
-                Buy Now
+                View Details
               </button>
             </div>
           </div>
@@ -54,12 +54,12 @@ export function ProductCard({ watch }: ProductCardProps) {
           </div>
           
           {/* Subtle badges */}
-          <div className="flex gap-1 mt-3">
+          {/* <div className="flex gap-1 mt-3">
             {watch.featured && (
               <Badge className="bg-luxury-gold/10 text-luxury-gold text-xs border-none">Featured</Badge>
             )}
             <Badge className={`${getConditionColor(watch.condition)} text-xs border-none`}>{watch.condition}</Badge>
-          </div>
+          </div> */}
         </div>
       </div>
     </Link>

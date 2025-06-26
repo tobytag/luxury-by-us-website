@@ -40,6 +40,15 @@ const sortOptionsExtended = [
 export function ShopPage() {
   const { filteredWatches, filters, setFilters, isLoading } = useApp();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Handle URL search params
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    if (searchParam) {
+      setFilters({ search: searchParam });
+    }
+  }, [setFilters]);
   const [selectedFilters, setSelectedFilters] = useState({
     brands: [] as string[],
     conditions: [] as string[],
@@ -65,17 +74,29 @@ export function ShopPage() {
     };
     setSelectedFilters(emptyFilters);
     setTempFilters(emptyFilters);
+    // Clear URL params
+    window.history.pushState({}, '', window.location.pathname);
   };
 
   const applyFilters = () => {
     setSelectedFilters(tempFilters);
-    // Apply brand filter to main context
+    
+    // Apply multiple brand filters
+    const filterUpdates: Partial<typeof filters> = {};
+    
     if (tempFilters.brands.length > 0) {
-      setFilters({ brand: tempFilters.brands[0].toLowerCase() });
+      // For now, apply the first brand selected (we can enhance this later for multiple brands)
+      filterUpdates.brand = tempFilters.brands[0].toLowerCase();
     } else {
-      setFilters({ brand: 'all' });
+      filterUpdates.brand = 'all';
     }
+    
+    setFilters(filterUpdates);
     setIsFilterOpen(false);
+  };
+
+  const resetTempFilters = () => {
+    setTempFilters(selectedFilters);
   };
 
   const activeFiltersCount = Object.values(selectedFilters).reduce((count, arr) => {
@@ -306,7 +327,7 @@ export function ShopPage() {
                     {/* Apply Filter Button */}
                     <div className="sticky bottom-0 bg-white border-t pt-4 mt-6">
                       <div className="flex gap-3">
-                        <Button variant="outline" onClick={() => setTempFilters(selectedFilters)} className="flex-1">
+                        <Button variant="outline" onClick={resetTempFilters} className="flex-1">
                           Reset
                         </Button>
                         <Button onClick={applyFilters} className="flex-1 bg-luxury-black text-white hover:bg-luxury-gold hover:text-luxury-black">

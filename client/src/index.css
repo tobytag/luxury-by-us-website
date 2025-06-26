@@ -149,6 +149,33 @@
   .group:hover img {
     transform: scale(1.05);
   }
+
+  /* Elegant Animations */
+  @keyframes spin-slow {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 60s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 80s linear infinite;
+  }
   
   /* Typography scaling */
   .text-responsive-h1 {

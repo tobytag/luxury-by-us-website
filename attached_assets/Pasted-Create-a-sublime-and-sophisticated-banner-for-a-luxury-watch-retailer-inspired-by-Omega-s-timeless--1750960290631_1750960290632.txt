@@ -1,0 +1,73 @@
+Create a sublime and sophisticated banner for a luxury watch retailer, inspired by Omega's timeless elegance and Swiss craftsmanship heritage. The design should embody precision, prestige, and exclusivity while maintaining modern luxury aesthetics.
+Visual Style & Aesthetic
+
+Color Palette: Deep charcoal blacks, platinum silvers, warm champagne golds, and crisp whites with subtle bronze accents
+Typography: Clean, modern serif or refined sans-serif fonts with elegant letterforms and generous spacing
+Overall Mood: Sophisticated, timeless, prestigious, and meticulously crafted
+Visual Hierarchy: Clear, uncluttered composition with strategic use of negative space
+
+Core Visual Elements
+Primary Focus
+
+Hero Watch: Feature a single luxury timepiece as the centerpiece, positioned at a 45-degree angle with dramatic lighting
+Photography Style: Ultra-high resolution with perfect reflections, showcasing intricate details like dial textures, hand craftsmanship, and premium materials
+Lighting: Studio-quality lighting with subtle shadows and highlights that emphasize the watch's dimensional qualities
+
+Background & Composition
+
+Background: Gradient from deep black to dark gray, or subtle textured surfaces (marble, brushed metal, or premium leather)
+Layout: Asymmetrical balance with the watch prominently displayed and supporting elements strategically placed
+Depth: Multiple layers creating visual depth through overlapping elements and shadow play
+
+Typography & Messaging
+
+Brand Name: Prominently featured in refined, custom lettering
+Tagline Options:
+
+"Precision. Heritage. Excellence."
+"Swiss Craftsmanship Since [Year]"
+"Where Time Meets Artistry"
+"Timeless Elegance, Modern Innovation"
+
+
+Font Weight: Mix of light and bold weights for visual contrast
+Letter Spacing: Increased tracking for premium feel
+
+Supporting Design Elements
+
+Subtle Geometric Patterns: Thin lines, minimal geometric shapes, or watchmaking-inspired elements (gears, crowns, bezels)
+Swiss Heritage Symbols: Discreet references to Swiss craftsmanship (small Swiss cross, alpine motifs, or precision instruments)
+Texture Details: Subtle leather textures, brushed metal finishes, or fine mechanical patterns
+Accent Elements: Thin gold or silver lines, minimal borders, or refined dividers
+
+Technical Specifications
+
+Dimensions: Optimized for web headers (1920x600px) or print advertisements
+Resolution: 300 DPI for print, optimized web formats for digital
+File Formats: High-quality PNG with transparency options, JPEG for full backgrounds
+Mobile Responsiveness: Scalable design elements that work across devices
+
+Brand Positioning Elements
+
+Heritage Emphasis: Subtle references to watchmaking tradition and Swiss expertise
+Innovation Balance: Modern design elements paired with classic luxury cues
+Exclusivity Markers: Premium materials visualization, limited edition numbering, or craftsmanship details
+Trust Indicators: Quality certifications, Swiss Made marks, or precision guarantees
+
+Emotional Design Goals
+
+Evoke feelings of prestige, accomplishment, and refined taste
+Communicate reliability, precision, and timeless value
+Appeal to discerning collectors and luxury enthusiasts
+Balance aspiration with accessibility for the target demographic
+
+Design Execution Notes
+
+Maintain generous white space for breathing room and luxury feel
+Use subtle animations if digital (gentle rotations, fade-ins, parallax effects)
+Ensure all text is highly legible against background elements
+Consider seasonal variations while maintaining core brand consistency
+Test readability across various screen sizes and lighting conditions
+
+Inspiration Keywords
+Omega Watches, Swiss precision, horological excellence, timeless sophistication, premium craftsmanship, luxury heritage, modern elegance, refined minimalism, prestigious timepieces, Swiss Made quality

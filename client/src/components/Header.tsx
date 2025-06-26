@@ -11,6 +11,19 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      // Navigate to shop page with search query
+      window.location.href = `/shop?search=${encodeURIComponent(searchQuery.trim())}`;
+    }
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   const navigation = [
     { name: 'Shop', href: '/shop' },
     { name: 'Sell', href: '/sell' },
@@ -64,6 +77,7 @@ export function Header() {
                     placeholder="Search watches..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleSearchKeyDown}
                     className="w-64 border-none bg-transparent focus:ring-0 focus:outline-none"
                     autoFocus
                   />

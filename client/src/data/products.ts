@@ -29,10 +29,10 @@ export const conditions = [
 ];
 
 export const priceRanges = [
-  { label: 'Under ₦5M', value: '0-5000000' },
-  { label: '₦5M - ₦15M', value: '5000000-15000000' },
-  { label: '₦15M - ₦30M', value: '15000000-30000000' },
-  { label: 'Above ₦30M', value: '30000000' },
+  { label: 'Under $5M', value: '0-5000000' },
+  { label: '$5M - $15M', value: '5000000-15000000' },
+  { label: '$15M - $30M', value: '15000000-30000000' },
+  { label: 'Above $30M', value: '30000000' },
 ];
 
 export const sortOptions = [

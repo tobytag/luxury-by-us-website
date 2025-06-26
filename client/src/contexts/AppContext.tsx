@@ -72,9 +72,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       );
     }
 
-    // Brand filter
+    // Brand filter - support multiple brands
     if (filters.brand && filters.brand !== 'all') {
-      filtered = filtered.filter(watch => watch.brand.toLowerCase() === filters.brand.toLowerCase());
+      const brandArray = Array.isArray(filters.brand) ? filters.brand : [filters.brand];
+      filtered = filtered.filter(watch => 
+        brandArray.some(brand => watch.brand.toLowerCase() === brand.toLowerCase())
+      );
     }
 
     // Category filter
