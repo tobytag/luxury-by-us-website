@@ -1,131 +1,63 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { Watch } from '@shared/schema';
-
-interface FilterState {
-  search: string;
-  brand: string;
-  category: string;
-  priceRange: string;
-  sortBy: string;
-}
+import React, { createContext, useContext, useState } from 'react';
 
 interface AppContextType {
-  watches: Watch[];
-  filteredWatches: Watch[];
-  filters: FilterState;
-  setFilters: (filters: Partial<FilterState>) => void;
-  resetFilters: () => void;
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
+  filteredWatches: any[]; // Consider replacing 'any' with a proper Watch interface
+  filters: {
+    search?: string;
+    brand?: string;
+    category?: string;
+    priceRange?: string;
+    condition?: string;
+    delivery?: string;
+    availability?: string;
+    sortBy?: string;
+  };
+  setFilters: (filters: AppContextType['filters']) => void;
   isLoading: boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const initialFilters: FilterState = {
-  search: '',
-  brand: 'all',
-  category: 'all',
-  priceRange: 'all',
-  sortBy: 'featured',
-};
-
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [watches, setWatches] = useState<Watch[]>([]);
-  const [filters, setFiltersState] = useState<FilterState>(initialFilters);
-  const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [filters, setFilters] = useState<AppContextType['filters']>({ sortBy: 'relevance' });
+  const [filteredWatches, setFilteredWatches] = useState<AppContextType['filteredWatches']>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  // Simulated data fetching (replace with actual API call)
+  React.useEffect(() => {
+    const fetchWatches = async () => {
+      setIsLoading(true);
+      try {
+        // TODO: Replace with actual API call
+        const watches = await fetch('/api/watches').then(res => res.json());
+        setFilteredWatches(watches);
+      } catch (error) {
+        console.error('Error fetching watches:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchWatches();
   }, []);
 
-  const fetchWatches = async () => {
-    try {
-      const response = await fetch('/api/watches');
-      if (response.ok) {
-        const watchesData = await response.json();
-        setWatches(watchesData);
-      }
-    } catch (error) {
-      console.error('Failed to fetch watches:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const setFilters = (newFilters: Partial<FilterState>) => {
-    setFiltersState(prev => ({ ...prev, ...newFilters }));
-  };
-
-  const resetFilters = () => {
-    setFiltersState(initialFilters);
-  };
-
-  const filteredWatches = React.useMemo(() => {
-    let filtered = [...watches];
-
-    // Search filter
-    if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
-      filtered = filtered.filter(watch =>
-        watch.name.toLowerCase().includes(searchTerm) ||
-        watch.brand.toLowerCase().includes(searchTerm) ||
-        watch.description.toLowerCase().includes(searchTerm)
-      );
-    }
-
-    // Brand filter - support multiple brands
-    if (filters.brand && filters.brand !== 'all') {
-      const brandArray = Array.isArray(filters.brand) ? filters.brand : [filters.brand];
-      filtered = filtered.filter(watch => 
-        brandArray.some(brand => watch.brand.toLowerCase() === brand.toLowerCase())
-      );
-    }
-
-    // Category filter
-    if (filters.category && filters.category !== 'all') {
-      filtered = filtered.filter(watch => watch.category.toLowerCase() === filters.category.toLowerCase());
-    }
-
-    // Price range filter
-    if (filters.priceRange && filters.priceRange !== 'all') {
-      const [min, max] = filters.priceRange.split('-').map(p => parseInt(p));
-      if (max) {
-        filtered = filtered.filter(watch => watch.price >= min && watch.price <= max);
-      } else {
-        filtered = filtered.filter(watch => watch.price >= min);
-      }
-    }
-
-    // Sort
-    switch (filters.sortBy) {
-      case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case 'newest':
-        filtered.sort((a, b) => b.year - a.year);
-        break;
-      case 'popular':
-        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-        break;
-      default: // featured
-        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    }
-
-    return filtered;
-  }, [watches, filters]);
-
-  const value: AppContextType = {
-    watches,
-    filteredWatches,
-    filters,
-    setFilters,
-    resetFilters,
-    isLoading,
-  };
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider 
+      value={{ 
+        theme, 
+        setTheme,
+        filteredWatches,
+        filters,
+        setFilters,
+        isLoading
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export function useApp() {

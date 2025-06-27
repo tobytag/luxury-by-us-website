@@ -18,7 +18,8 @@ export function HomePage() {
     'PATEK PHILIPPE', 
     'AUDEMARS PIGUET',
     'OMEGA',
-    'CARTIER'
+    'CARTIER',
+    'TAG HEUER',
   ];
 
   return (
@@ -48,7 +49,7 @@ export function HomePage() {
             </Link>
             <Link href="/sell">
               <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-luxury-black px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 touch-target">
-                Get Free Evaluation
+                Sell you Watch
               </Button>
             </Link>
           </div>
