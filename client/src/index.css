@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 10%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 13%, 52%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 10%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 10%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(45, 66%, 52%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(0, 0%, 10%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(0, 0%, 10%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(45, 66%, 52%);
+  --radius: 0.5rem;
+  
+  /* Luxury color palette */
+  --luxury-black: hsl(0, 0%, 0%);
+  --luxury-dark: hsl(0, 0%, 10%);
+  --luxury-gold: hsl(45, 66%, 52%);
+  --luxury-gold-light: hsl(51, 100%, 50%);
+  
+  /* Responsive spacing variables */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-2xl: 64px;
+}
+
+.dark {
+  --background: hsl(0, 0%, 3%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(217, 33%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(0, 0%, 3%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 3%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(217, 33%, 17%);
+  --input: hsl(217, 33%, 17%);
+  --primary: hsl(45, 66%, 52%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(217, 33%, 17%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(217, 33%, 17%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(45, 66%, 52%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .luxury-gold {
+    color: var(--luxury-gold);
+  }
+  
+  .luxury-gold-light {
+    color: var(--luxury-gold-light);
+  }
+  
+  .luxury-black {
+    color: var(--luxury-black);
+  }
+  
+  .luxury-dark {
+    color: var(--luxury-dark);
+  }
+  
+  .bg-luxury-gold {
+    background-color: var(--luxury-gold);
+  }
+  
+  .bg-luxury-gold-light {
+    background-color: var(--luxury-gold-light);
+  }
+  
+  .bg-luxury-black {
+    background-color: var(--luxury-black);
+  }
+  
+  .bg-luxury-dark {
+    background-color: var(--luxury-dark);
+  }
+  
+  .border-luxury-gold {
+    border-color: var(--luxury-gold);
+  }
+  
+  .border-luxury-black {
+    border-color: var(--luxury-black);
+  }
+  
+  /* Responsive spacing utilities with wider margins and smooth loading */
+  .container-responsive {
+    max-width: calc(100vw - 200px);
+    margin: 0 auto;
+    padding: 0 100px;
+    will-change: transform;
+  }
+  
+  @media (max-width: 1024px) {
+    .container-responsive {
+      max-width: calc(100vw - 100px);
+      padding: 0 50px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container-responsive {
+      max-width: calc(100vw - 32px);
+      padding: 0 var(--spacing-sm);
+    }
+  }
+
+  /* Performance optimizations */
+  img {
+    will-change: transform;
+  }
+
+  .group:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Elegant Animations */
+  @keyframes spin-slow {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 60s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 80s linear infinite;
+  }
+  
+  /* Typography scaling */
+  .text-responsive-h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  .text-responsive-h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .text-responsive-h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  @media (max-width: 1024px) {
+    .text-responsive-h1 {
+      font-size: 2rem;
+    }
+    .text-responsive-h2 {
+      font-size: 1.75rem;
+    }
+    .text-responsive-h3 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .text-responsive-h1 {
+      font-size: 1.75rem;
+    }
+    .text-responsive-h2 {
+      font-size: 1.5rem;
+    }
+    .text-responsive-h3 {
+      font-size: 1.125rem;
+    }
+  }
+  
+  /* Touch-friendly elements */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Omega-inspired luxury styles */
+  .omega-product-title {
+    font-family: 'Georgia', serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  
+  .omega-price {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  
+  .luxury-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Smooth image zoom */
+  .image-zoom {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Premium button hover effects */
+  .luxury-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Omega-inspired card hover effects */
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Smooth filter animations */
+  .filter-slide-in {
+    animation: slideIn 0.3s ease-out forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Custom scrollbar for filter sidebar */
+  .filter-sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-thumb {
+    background: var(--luxury-gold);
+    border-radius: 2px;
+  }
+  
+  .filter-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--luxury-gold-light);
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(20px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Custom hover effects */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
