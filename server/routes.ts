@@ -1,7 +1,11 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertInquirySchema, insertSellSubmissionSchema, insertNewsletterSchema } from "@shared/schema";
+import {
+  insertInquirySchema,
+  insertSellSubmissionSchema,
+  insertNewsletterSchema,
+} from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get all watches
@@ -10,6 +14,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const watches = await storage.getAllWatches();
       res.json(watches);
     } catch (error) {
+      console.error("Error fetching watches:", error);
       res.status(500).json({ message: "Failed to fetch watches" });
     }
   });
@@ -20,6 +25,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const watches = await storage.getFeaturedWatches();
       res.json(watches);
     } catch (error) {
+      console.error("Error fetching featured watches:", error);
       res.status(500).json({ message: "Failed to fetch featured watches" });
     }
   });
@@ -34,15 +40,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       res.json(watch);
     } catch (error) {
+      console.error("Error fetching watch:", error);
       res.status(500).json({ message: "Failed to fetch watch" });
-    }
-  });
-  app.get("/api/watches/featured", async (_req, res) => {
-    try {
-      const watches = await storage.getFeaturedWatches();
-      res.json(watches);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch featured watches" });
     }
   });
 
@@ -53,6 +52,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const inquiry = await storage.createInquiry(validatedData);
       res.status(201).json(inquiry);
     } catch (error) {
+      console.error("Invalid inquiry data:", error);
       res.status(400).json({ message: "Invalid inquiry data" });
     }
   });
@@ -64,6 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const submission = await storage.createSellSubmission(validatedData);
       res.status(201).json(submission);
     } catch (error) {
+      console.error("Invalid submission data:", error);
       res.status(400).json({ message: "Invalid submission data" });
     }
   });
@@ -75,10 +76,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const subscription = await storage.createNewsletterSubscription(validatedData);
       res.status(201).json(subscription);
     } catch (error) {
+      console.error("Invalid newsletter subscription:", error);
       res.status(400).json({ message: "Invalid email or already subscribed" });
     }
   });
 
+  // Return the server
   const httpServer = createServer(app);
   return httpServer;
 }
